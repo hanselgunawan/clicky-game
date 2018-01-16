@@ -67,16 +67,88 @@ class SearchResultContainer extends Component {
         ]
     };
 
+    componentDidMount = () => {
+        this.shuffle(this.state.results);
+    };
+
+    shuffle = resultsArr => {
+        let currentIndex = resultsArr.length, temporaryValue, randomIndex;
+
+        while (0 !== currentIndex) {
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            temporaryValue = resultsArr[currentIndex];
+            resultsArr[currentIndex] = resultsArr[randomIndex];
+            resultsArr[randomIndex] = temporaryValue;
+        }
+        this.setState({
+            results:resultsArr
+        });
+    };
+
+    updateScore = () => {
+        this.setState({
+            score: this.state.score + 1
+        });
+    };
+
+    updateTopScore = () => {
+        this.setState({
+            topScore: this.state.topScore + 1
+        });
+    };
+
+    emptyScore = () => {
+        this.setState({
+            score: 0
+        });
+    };
+
+    handleImageClick = imgId => {
+        let result = this.state.results;
+        let resultIdx = -1;
+        for(let i=0;i<result.length;i++)
+        {
+            if(result[i].imgId === imgId) resultIdx = i;
+        }
+        if(!this.state.results[resultIdx].imgClickStatus)
+        {
+            result[resultIdx].imgClickStatus = true;
+            this.updateScore();
+            if(this.state.score >= this.state.topScore)
+            {
+                this.updateTopScore();
+            }
+            this.setState({
+                clickStatus:"true",
+                result
+            });
+        }
+        else
+        {
+            this.setState({
+                clickStatus:"false"
+            });
+            this.state.results.map(data => data.imgClickStatus = false);
+            this.emptyScore();
+        }
+        this.shuffle(this.state.results);
+    };
+
     render() {
         return (
             <div>
                 <Header
-                score={this.state.score}
-                topScore={this.state.topScore}
-                clickStatus={this.state.clickStatus}
+                    score={this.state.score}
+                    topScore={this.state.topScore}
+                    clickStatus={this.state.clickStatus}
                 />
                 <Banner />
-                <Main results={this.state.results} />
+                <Main
+                    results={this.state.results}
+                    handleImageClick={this.handleImageClick}
+                />
                 <Footer />
             </div>
         );

@@ -23,8 +23,8 @@ const Main = props =>
         <div className="col-lg-6">
             <div className="row">
                 {props.results.map(data =>
-                    <div className="col-lg-4" style={borderEdit}>
-                        <img className="img-responsive" key={data.imgId} style={imageEdit} alt={data.imgAlt} src={data.imgUrl}/>
+                    <div className="col-lg-4" style={borderEdit} onClick={props.handleImageClick.bind(null, data.imgId)}>
+                        <img className="img-responsive" style={imageEdit} alt={data.imgAlt} src={data.imgUrl}/>
                     </div>
                 )}
             </div>
