@@ -4,7 +4,7 @@ import Banner from "./Banner";
 import Main from "./Main";
 import Footer from "./Footer";
 
-class SearchResultContainer extends Component {
+class GameContainer extends Component {
     state = {
         score: 0,
         topScore: 0,
@@ -32,7 +32,7 @@ class SearchResultContainer extends Component {
                 imgId:3,
                 imgUrl: "http://clipart.info/images/ccovers/1510684304Spider-Man-tsum-tsum-marvel.png",
                 imgAlt: "Spider-Man",
-                imgClickStatus: false
+                imgClickStatus: false,
             },
             {
                 imgId:4,
@@ -155,4 +155,4 @@ class SearchResultContainer extends Component {
     }
 }
 
-export default SearchResultContainer;
+export default GameContainer;
